@@ -138,7 +138,6 @@ normal! zt
 101
 normal! 020|
 wincmd w
-4wincmd w
 exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
 exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
 exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
@@ -197,11 +196,11 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 15) / 31)
+let s:l = 4 - ((3 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
+4
 normal! 0
 wincmd w
 argglobal
@@ -214,11 +213,11 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 13 - ((12 * winheight(0) + 31) / 63)
+let s:l = 14 - ((13 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-13
+14
 normal! 0
 wincmd w
 argglobal
@@ -255,6 +254,7 @@ normal! zt
 6
 normal! 010|
 wincmd w
+2wincmd w
 exe '1resize ' . ((&lines * 31 + 33) / 66)
 exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
 exe '2resize ' . ((&lines * 31 + 33) / 66)
@@ -311,7 +311,7 @@ normal! 08|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 137 + 137) / 274)
 exe 'vert 2resize ' . ((&columns * 136 + 137) / 274)
-tabnext 1
+tabnext 2
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif

@@ -1,6 +1,7 @@
 import pathlib
 
 from envparse import env
+import yarl
 
 try:
     env.read_envfile()

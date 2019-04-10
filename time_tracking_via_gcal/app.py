@@ -1,9 +1,11 @@
 import logging
 
-from aiohttp import web
+from aiogram.contrib.fsm_storage.redis import (
+    RedisStorage2,
+)
+from aiogram import Bot, Dispatcher
 
-from .bot import BotManager
-from .settings import DEBUG
+from .settings import DEBUG, BOT_API_TOKEN, REDIS_URL
 
 
 logging.basicConfig(
@@ -11,13 +13,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-
-async def health_check(
-    request: web.Request
-) -> web.Response:
-    return web.Response()
-
-
-def run_bot():
-    bot = BotManager()
-    bot.start()
+bot = Bot(token=BOT_API_TOKEN)
+dp = Dispatcher(bot)
+storage = RedisStorage2(
+    REDIS_URL.host,
+    REDIS_URL.port,
+    db=int(REDIS_URL.path[1:]),
+)
+bot = Bot(token=BOT_API_TOKEN, parse_mode="markdown")
+dp = Dispatcher(bot, storage=storage)

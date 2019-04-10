@@ -15,12 +15,12 @@ badd +21 time_tracking_via_gcal/app.py
 badd +7 tests/test_integration.py
 badd +11 tests/conftest.py
 badd +1 time_tracking_via_gcal/__main__.py
-badd +23 time_tracking_via_gcal/bot.py
+badd +24 time_tracking_via_gcal/bot.py
 badd +82 time_tracking_via_gcal/handlers/__init__.py
 badd +1 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/utils/__init__.py
 badd +851 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/dispatcher/dispatcher.py
 badd +126 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/utils/executor.py
-badd +10 time_tracking_via_gcal/settings.py
+badd +11 time_tracking_via_gcal/settings.py
 badd +419 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiohttp/web.py
 badd +280 /usr/lib/python3.7/asyncio/events.py
 badd +133 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiohttp/web_app.py
@@ -46,7 +46,7 @@ badd +273 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/li
 badd +7 docker-compose.yml
 badd +23 Dockerfile
 badd +1 .env
-badd +0 .dockerignore
+badd +151 .dockerignore
 argglobal
 silent! argdel *
 edit time_tracking_via_gcal/handlers/data_processing.py
@@ -112,11 +112,11 @@ setlocal fdl=3
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 59 - ((31 * winheight(0) + 31) / 63)
+let s:l = 58 - ((31 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-59
+58
 normal! 038|
 wincmd w
 argglobal
@@ -131,30 +131,98 @@ setlocal fdn=20
 setlocal fen
 64
 normal! zo
-let s:l = 104 - ((58 * winheight(0) + 31) / 63)
+let s:l = 101 - ((55 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-104
-normal! 017|
+101
+normal! 020|
 wincmd w
+4wincmd w
 exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
 exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
 exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
 exe 'vert 4resize ' . ((&columns * 67 + 137) / 274)
-tabedit time_tracking_via_gcal/bot.py
+tabedit .env
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
-1wincmd h
+wincmd _ | wincmd |
+vsplit
+wincmd _ | wincmd |
+vsplit
+3wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd w
+wincmd w
 wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
 set winminheight=1 winminwidth=1 winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 137 + 137) / 274)
-exe 'vert 2resize ' . ((&columns * 136 + 137) / 274)
+exe '1resize ' . ((&lines * 31 + 33) / 66)
+exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
+exe '2resize ' . ((&lines * 31 + 33) / 66)
+exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
+exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
+exe 'vert 4resize ' . ((&columns * 68 + 137) / 274)
+exe 'vert 5resize ' . ((&columns * 67 + 137) / 274)
 argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 3 - ((2 * winheight(0) + 15) / 31)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+3
+normal! 0
+wincmd w
+argglobal
+if bufexists('time_tracking_via_gcal/settings.py') | buffer time_tracking_via_gcal/settings.py | else | edit time_tracking_via_gcal/settings.py | endif
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=1
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 15) / 31)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+wincmd w
+argglobal
+if bufexists('time_tracking_via_gcal/app.py') | buffer time_tracking_via_gcal/app.py | else | edit time_tracking_via_gcal/app.py | endif
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=1
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 13 - ((12 * winheight(0) + 31) / 63)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+13
+normal! 0
+wincmd w
+argglobal
+if bufexists('time_tracking_via_gcal/bot.py') | buffer time_tracking_via_gcal/bot.py | else | edit time_tracking_via_gcal/bot.py | endif
 setlocal fdm=expr
 setlocal fde=SimpylFold#FoldExpr(v:lnum)
 setlocal fmr={{{,}}}
@@ -163,14 +231,12 @@ setlocal fdl=3
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-39
-normal! zo
-let s:l = 11 - ((10 * winheight(0) + 31) / 63)
+let s:l = 25 - ((24 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-11
-normal! 09|
+25
+normal! 0
 wincmd w
 argglobal
 if bufexists('time_tracking_via_gcal/handlers/settings.py') | buffer time_tracking_via_gcal/handlers/settings.py | else | edit time_tracking_via_gcal/handlers/settings.py | endif
@@ -187,30 +253,27 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 6
-normal! 02|
+normal! 010|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 137 + 137) / 274)
-exe 'vert 2resize ' . ((&columns * 136 + 137) / 274)
-tabedit .dockerignore
+exe '1resize ' . ((&lines * 31 + 33) / 66)
+exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
+exe '2resize ' . ((&lines * 31 + 33) / 66)
+exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
+exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
+exe 'vert 4resize ' . ((&columns * 68 + 137) / 274)
+exe 'vert 5resize ' . ((&columns * 67 + 137) / 274)
+tabedit docker-compose.yml
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
-wincmd _ | wincmd |
-vsplit
-wincmd _ | wincmd |
-vsplit
-3wincmd h
-wincmd w
-wincmd w
+1wincmd h
 wincmd w
 set nosplitbelow
 set nosplitright
 wincmd t
 set winminheight=1 winminwidth=1 winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 4resize ' . ((&columns * 67 + 137) / 274)
+exe 'vert 1resize ' . ((&columns * 137 + 137) / 274)
+exe 'vert 2resize ' . ((&columns * 136 + 137) / 274)
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -221,32 +284,15 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 151 - ((59 * winheight(0) + 31) / 63)
+let s:l = 3 - ((2 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-151
-normal! 08|
+3
+normal! 05|
 wincmd w
 argglobal
-if bufexists('time_tracking_via_gcal/settings.py') | buffer time_tracking_via_gcal/settings.py | else | edit time_tracking_via_gcal/settings.py | endif
-setlocal fdm=expr
-setlocal fde=SimpylFold#FoldExpr(v:lnum)
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=1
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 10 - ((9 * winheight(0) + 31) / 63)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-10
-normal! 08|
-wincmd w
-argglobal
-if bufexists('docker-compose.yml') | buffer docker-compose.yml | else | edit docker-compose.yml | endif
+if bufexists('Dockerfile') | buffer Dockerfile | else | edit Dockerfile | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -256,37 +302,16 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 7 - ((6 * winheight(0) + 31) / 63)
+let s:l = 19 - ((18 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-7
-normal! 017|
-lcd ~/Dropbox/code/time_tracking_via_gcal
-wincmd w
-argglobal
-if bufexists('~/Dropbox/code/time_tracking_via_gcal/Dockerfile') | buffer ~/Dropbox/code/time_tracking_via_gcal/Dockerfile | else | edit ~/Dropbox/code/time_tracking_via_gcal/Dockerfile | endif
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 23 - ((22 * winheight(0) + 31) / 63)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-23
+19
 normal! 08|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 4resize ' . ((&columns * 67 + 137) / 274)
-tabnext 3
+exe 'vert 1resize ' . ((&columns * 137 + 137) / 274)
+exe 'vert 2resize ' . ((&columns * 136 + 137) / 274)
+tabnext 1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif

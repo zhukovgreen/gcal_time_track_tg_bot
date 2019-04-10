@@ -1,6 +1,6 @@
 from aiogram import types
 
-# from ..bot import dp
+from ..app import dp
 
 
 edit_button = types.InlineKeyboardButton(

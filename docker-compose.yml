@@ -1,7 +1,8 @@
 version: '3.3'
 services:
   api:
-    env_file: .env
+    volumes:
+    - .:/app
     build:
       context: .
       cache_from:

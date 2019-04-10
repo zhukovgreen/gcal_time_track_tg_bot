@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 import asyncio
 
 import attr
-from aiogram import Bot, Dispatcher, executor, types
+from aiogram import executor, types
 from googleapiclient.discovery import Resource
 
 from .handlers import (
@@ -13,15 +13,13 @@ from .handlers import (
     start,
     ReportPeriod,
 )
+from .app import bot, dp
 from .handlers.settings import settings, settings_edit
-from .settings import BOT_API_TOKEN, PATH
+from .settings import PATH
 from .gcal_manager import build_gcal
 
 
 logger = logging.getLogger("aiogram")
-
-bot = Bot(token=BOT_API_TOKEN)
-dp = Dispatcher(bot)
 
 
 def _period_check_factory(period: ReportPeriod):
@@ -88,3 +86,8 @@ class BotManager:
             settings_edit,
             lambda c: c.data == "edit_settings",
         )
+
+
+def run_bot():
+    bot = BotManager()
+    bot.start()

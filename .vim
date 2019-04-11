@@ -28,7 +28,7 @@ badd +1 tests/__init__.py
 badd +69 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aresponses/main.py
 badd +13 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/types/reply_keyboard.py
 badd +27 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/dispatcher/handler.py
-badd +32 time_tracking_via_gcal/handlers/data_processing.py
+badd +1 time_tracking_via_gcal/handlers/data_processing.py
 badd +395 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/types/message.py
 badd +18 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/types/base.py
 badd +18 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/types/input_file.py
@@ -43,10 +43,11 @@ badd +182 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/li
 badd +499 /usr/lib/python3.7/shutil.py
 badd +3 time_tracking_via_gcal/handlers/settings.py
 badd +273 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/dispatcher/storage.py
-badd +7 docker-compose.yml
+badd +1 docker-compose.yml
 badd +23 Dockerfile
 badd +1 .env
 badd +151 .dockerignore
+badd +295 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/contrib/fsm_storage/redis.py
 argglobal
 silent! argdel *
 edit time_tracking_via_gcal/handlers/data_processing.py
@@ -78,11 +79,11 @@ setlocal fdl=2
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 32 - ((31 * winheight(0) + 31) / 63)
+let s:l = 22 - ((21 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-32
+22
 normal! 0
 wincmd w
 argglobal
@@ -117,7 +118,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 58
-normal! 038|
+normal! 01|
 wincmd w
 argglobal
 if bufexists('time_tracking_via_gcal/handlers/__init__.py') | buffer time_tracking_via_gcal/handlers/__init__.py | else | edit time_tracking_via_gcal/handlers/__init__.py | endif
@@ -167,8 +168,8 @@ exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
 exe '2resize ' . ((&lines * 31 + 33) / 66)
 exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
 exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 4resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 5resize ' . ((&columns * 67 + 137) / 274)
+exe 'vert 4resize ' . ((&columns * 67 + 137) / 274)
+exe 'vert 5resize ' . ((&columns * 68 + 137) / 274)
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -184,7 +185,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 3
-normal! 0
+normal! 05|
 wincmd w
 argglobal
 if bufexists('time_tracking_via_gcal/settings.py') | buffer time_tracking_via_gcal/settings.py | else | edit time_tracking_via_gcal/settings.py | endif
@@ -196,12 +197,12 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 4 - ((3 * winheight(0) + 15) / 31)
+let s:l = 15 - ((14 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-4
-normal! 0
+15
+normal! 035|
 wincmd w
 argglobal
 if bufexists('time_tracking_via_gcal/app.py') | buffer time_tracking_via_gcal/app.py | else | edit time_tracking_via_gcal/app.py | endif
@@ -213,12 +214,12 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 14 - ((13 * winheight(0) + 31) / 63)
+let s:l = 21 - ((20 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-14
-normal! 0
+21
+normal! 030|
 wincmd w
 argglobal
 if bufexists('time_tracking_via_gcal/bot.py') | buffer time_tracking_via_gcal/bot.py | else | edit time_tracking_via_gcal/bot.py | endif
@@ -230,12 +231,14 @@ setlocal fdl=3
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 25 - ((24 * winheight(0) + 31) / 63)
+41
+normal! zo
+let s:l = 90 - ((52 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-25
-normal! 0
+90
+normal! 09|
 wincmd w
 argglobal
 if bufexists('time_tracking_via_gcal/handlers/settings.py') | buffer time_tracking_via_gcal/handlers/settings.py | else | edit time_tracking_via_gcal/handlers/settings.py | endif
@@ -247,21 +250,21 @@ setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 6 - ((5 * winheight(0) + 31) / 63)
+let s:l = 22 - ((20 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-6
-normal! 010|
+22
+normal! 05|
 wincmd w
-2wincmd w
+5wincmd w
 exe '1resize ' . ((&lines * 31 + 33) / 66)
 exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
 exe '2resize ' . ((&lines * 31 + 33) / 66)
 exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
 exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 4resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 5resize ' . ((&columns * 67 + 137) / 274)
+exe 'vert 4resize ' . ((&columns * 67 + 137) / 274)
+exe 'vert 5resize ' . ((&columns * 68 + 137) / 274)
 tabedit docker-compose.yml
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -284,12 +287,12 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 3 - ((2 * winheight(0) + 31) / 63)
+let s:l = 21 - ((20 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-3
-normal! 05|
+21
+normal! 015|
 wincmd w
 argglobal
 if bufexists('Dockerfile') | buffer Dockerfile | else | edit Dockerfile | endif

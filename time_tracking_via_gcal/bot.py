@@ -14,7 +14,11 @@ from .handlers import (
     ReportPeriod,
 )
 from .app import bot, dp
-from .handlers.settings import settings, settings_edit
+from .handlers.settings import (
+    settings,
+    settings_edit,
+    States,
+)
 from .settings import PATH
 from .gcal_manager import build_gcal
 
@@ -59,6 +63,8 @@ class BotManager:
         self.executor_pool.shutdown()
         for f in os.listdir(PATH / "tmp"):
             os.remove(PATH / "tmp" / f)
+        await dp.storage.close()
+        await dp.storage.wait_closed()
         await asyncio.sleep(0.250)
 
     async def _register_handlers(self):

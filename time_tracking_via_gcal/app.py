@@ -20,5 +20,5 @@ storage = RedisStorage2(
     REDIS_URL.port,
     db=int(REDIS_URL.path[1:]),
 )
-bot = Bot(token=BOT_API_TOKEN, parse_mode="markdown")
+bot = Bot(token=BOT_API_TOKEN)
 dp = Dispatcher(bot, storage=storage)

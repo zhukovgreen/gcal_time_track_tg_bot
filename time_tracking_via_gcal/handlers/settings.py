@@ -1,6 +1,13 @@
-from aiogram import types
+from enum import Enum
+
+from aiogram import types, Bot
 
 from ..app import dp
+
+
+class States(Enum):
+    EDIT: str = "EDIT"
+    VIEWING: str = "VIEWING"
 
 
 edit_button = types.InlineKeyboardButton(
@@ -24,6 +31,13 @@ async def settings_edit(
     state = dp.current_state(
         user=callback.from_user.id
     )
-    import ipdb
-
-    ipdb.set_trace()
+    state.set_data(States.EDIT)
+    bot: Bot = callback.bot
+    await bot.send_message(
+        callback.from_user.id,
+        text=(
+            "Enter new values for a search tags. "
+            "Separate tehm with the coma `,`. "
+            "For example `GT,dev,sprint2-1-0`"
+        )
+    )

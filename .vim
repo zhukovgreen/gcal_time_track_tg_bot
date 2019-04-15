@@ -7,265 +7,34 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 token.pickle
-badd +14 tests/test_basic.py
-badd +1 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/googleapiclient/discovery.py
-badd +407 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/google_auth_oauthlib/flow.py
-badd +21 time_tracking_via_gcal/app.py
-badd +7 tests/test_integration.py
-badd +11 tests/conftest.py
-badd +1 time_tracking_via_gcal/__main__.py
-badd +24 time_tracking_via_gcal/bot.py
-badd +82 time_tracking_via_gcal/handlers/__init__.py
-badd +1 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/utils/__init__.py
-badd +851 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/dispatcher/dispatcher.py
-badd +126 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/utils/executor.py
-badd +11 time_tracking_via_gcal/settings.py
-badd +419 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiohttp/web.py
-badd +280 /usr/lib/python3.7/asyncio/events.py
-badd +133 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiohttp/web_app.py
-badd +1 tests/__init__.py
-badd +69 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aresponses/main.py
-badd +13 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/types/reply_keyboard.py
-badd +27 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/dispatcher/handler.py
-badd +1 time_tracking_via_gcal/handlers/data_processing.py
-badd +395 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/types/message.py
-badd +18 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/types/base.py
-badd +18 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/types/input_file.py
-badd +19 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiofiles/threadpool/__init__.py
-badd +28 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/types/__init__.py
-badd +101 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/pandas/core/generic.py
-badd +21 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/types/file.py
-badd +205 /usr/lib/python3.7/concurrent/futures/thread.py
-badd +1 time_tracking_via_gcal/gcal_manager.py
-badd +2 time_tracking_via_gcal/utils.py
-badd +182 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/google/auth/transport/requests.py
-badd +499 /usr/lib/python3.7/shutil.py
-badd +3 time_tracking_via_gcal/handlers/settings.py
-badd +273 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/dispatcher/storage.py
-badd +1 docker-compose.yml
-badd +23 Dockerfile
-badd +1 .env
-badd +151 .dockerignore
-badd +295 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiogram/contrib/fsm_storage/redis.py
+badd +23 pyproject.toml
+badd +1 migrations/env.py
+badd +29 time_tracking_via_gcal/models/user.py
+badd +4 time_tracking_via_gcal/models/__init__.py
+badd +5 migrations/env.py
+badd +395 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/sqlalchemy/ext/declarative/api.py
+badd +0 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/alembic/__init__.py
+badd +4 .env
+badd +1 time_tracking_via_gcal/models/base.py
+badd +699 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/sqlalchemy/sql/sqltypes.py
+badd +25 migrations/versions/1924a11946f8_init.py
+badd +2 README.md
+badd +1 time_tracking_via_gcal/db.py
+badd +17 time_tracking_via_gcal/app.py
+badd +1 time_tracking_via_gcal/bot.py
+badd +221 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiopg/sa/engine.py
+badd +179 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiopg/pool.py
+badd +9 time_tracking_via_gcal/settings.py
+badd +0 time_tracking_via_gcal/handlers/__init__.py
+badd +1235 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/sqlalchemy/sql/schema.py
+badd +163 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/aiopg/utils.py
+badd +637 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/sqlalchemy/sql/selectable.py
+badd +16 docker-compose.yml
+badd +0 time_tracking_via_gcal/handlers/settings.py
+badd +326 ~/.cache/pypoetry/virtualenvs/time-tracking-via-gcal-f98ImiSB-py3.7/lib/python3.7/site-packages/sqlalchemy/sql/elements.py
 argglobal
 silent! argdel *
-edit time_tracking_via_gcal/handlers/data_processing.py
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-wincmd _ | wincmd |
-vsplit
-wincmd _ | wincmd |
-vsplit
-3wincmd h
-wincmd w
-wincmd w
-wincmd w
-set nosplitbelow
-set nosplitright
-wincmd t
-set winminheight=1 winminwidth=1 winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 4resize ' . ((&columns * 67 + 137) / 274)
-argglobal
-setlocal fdm=expr
-setlocal fde=SimpylFold#FoldExpr(v:lnum)
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=2
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 22 - ((21 * winheight(0) + 31) / 63)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-22
-normal! 0
-wincmd w
-argglobal
-if bufexists('time_tracking_via_gcal/gcal_manager.py') | buffer time_tracking_via_gcal/gcal_manager.py | else | edit time_tracking_via_gcal/gcal_manager.py | endif
-setlocal fdm=expr
-setlocal fde=SimpylFold#FoldExpr(v:lnum)
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=1
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 75 - ((47 * winheight(0) + 31) / 63)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-75
-normal! 011|
-wincmd w
-argglobal
-if bufexists('time_tracking_via_gcal/bot.py') | buffer time_tracking_via_gcal/bot.py | else | edit time_tracking_via_gcal/bot.py | endif
-setlocal fdm=expr
-setlocal fde=SimpylFold#FoldExpr(v:lnum)
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=3
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 58 - ((31 * winheight(0) + 31) / 63)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-58
-normal! 01|
-wincmd w
-argglobal
-if bufexists('time_tracking_via_gcal/handlers/__init__.py') | buffer time_tracking_via_gcal/handlers/__init__.py | else | edit time_tracking_via_gcal/handlers/__init__.py | endif
-setlocal fdm=expr
-setlocal fde=SimpylFold#FoldExpr(v:lnum)
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=3
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-64
-normal! zo
-let s:l = 101 - ((55 * winheight(0) + 31) / 63)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-101
-normal! 020|
-wincmd w
-exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 4resize ' . ((&columns * 67 + 137) / 274)
-tabedit .env
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-wincmd _ | wincmd |
-vsplit
-wincmd _ | wincmd |
-vsplit
-3wincmd h
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
-wincmd w
-wincmd w
-wincmd w
-set nosplitbelow
-set nosplitright
-wincmd t
-set winminheight=1 winminwidth=1 winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 31 + 33) / 66)
-exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
-exe '2resize ' . ((&lines * 31 + 33) / 66)
-exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 4resize ' . ((&columns * 67 + 137) / 274)
-exe 'vert 5resize ' . ((&columns * 68 + 137) / 274)
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 3 - ((2 * winheight(0) + 15) / 31)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-3
-normal! 05|
-wincmd w
-argglobal
-if bufexists('time_tracking_via_gcal/settings.py') | buffer time_tracking_via_gcal/settings.py | else | edit time_tracking_via_gcal/settings.py | endif
-setlocal fdm=expr
-setlocal fde=SimpylFold#FoldExpr(v:lnum)
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=1
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 15 - ((14 * winheight(0) + 15) / 31)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-15
-normal! 035|
-wincmd w
-argglobal
-if bufexists('time_tracking_via_gcal/app.py') | buffer time_tracking_via_gcal/app.py | else | edit time_tracking_via_gcal/app.py | endif
-setlocal fdm=expr
-setlocal fde=SimpylFold#FoldExpr(v:lnum)
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=1
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 21 - ((20 * winheight(0) + 31) / 63)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-21
-normal! 030|
-wincmd w
-argglobal
-if bufexists('time_tracking_via_gcal/bot.py') | buffer time_tracking_via_gcal/bot.py | else | edit time_tracking_via_gcal/bot.py | endif
-setlocal fdm=expr
-setlocal fde=SimpylFold#FoldExpr(v:lnum)
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=3
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-41
-normal! zo
-let s:l = 90 - ((52 * winheight(0) + 31) / 63)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-90
-normal! 09|
-wincmd w
-argglobal
-if bufexists('time_tracking_via_gcal/handlers/settings.py') | buffer time_tracking_via_gcal/handlers/settings.py | else | edit time_tracking_via_gcal/handlers/settings.py | endif
-setlocal fdm=expr
-setlocal fde=SimpylFold#FoldExpr(v:lnum)
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=1
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 22 - ((20 * winheight(0) + 31) / 63)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-22
-normal! 05|
-wincmd w
-5wincmd w
-exe '1resize ' . ((&lines * 31 + 33) / 66)
-exe 'vert 1resize ' . ((&columns * 68 + 137) / 274)
-exe '2resize ' . ((&lines * 31 + 33) / 66)
-exe 'vert 2resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 3resize ' . ((&columns * 68 + 137) / 274)
-exe 'vert 4resize ' . ((&columns * 67 + 137) / 274)
-exe 'vert 5resize ' . ((&columns * 68 + 137) / 274)
-tabedit docker-compose.yml
+edit time_tracking_via_gcal/bot.py
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -275,45 +44,211 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winminheight=1 winminwidth=1 winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 137 + 137) / 274)
-exe 'vert 2resize ' . ((&columns * 136 + 137) / 274)
+exe 'vert 1resize ' . ((&columns * 96 + 96) / 193)
+exe 'vert 2resize ' . ((&columns * 96 + 96) / 193)
 argglobal
-setlocal fdm=manual
-setlocal fde=0
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=0
+setlocal fdl=2
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-silent! normal! zE
-let s:l = 21 - ((20 * winheight(0) + 31) / 63)
+45
+normal! zo
+let s:l = 106 - ((47 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-21
-normal! 015|
+106
+normal! 013|
 wincmd w
 argglobal
-if bufexists('Dockerfile') | buffer Dockerfile | else | edit Dockerfile | endif
-setlocal fdm=manual
-setlocal fde=0
+if bufexists('time_tracking_via_gcal/models/user.py') | buffer time_tracking_via_gcal/models/user.py | else | edit time_tracking_via_gcal/models/user.py | endif
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
 setlocal fmr={{{,}}}
 setlocal fdi=#
-setlocal fdl=0
+setlocal fdl=1
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-silent! normal! zE
-let s:l = 19 - ((18 * winheight(0) + 31) / 63)
+let s:l = 31 - ((30 * winheight(0) + 31) / 63)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-19
+31
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 96 + 96) / 193)
+exe 'vert 2resize ' . ((&columns * 96 + 96) / 193)
+tabedit time_tracking_via_gcal/handlers/settings.py
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+wincmd _ | wincmd |
+vsplit
+2wincmd h
+wincmd w
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=1 winminwidth=1 winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 64 + 96) / 193)
+exe 'vert 2resize ' . ((&columns * 64 + 96) / 193)
+exe 'vert 3resize ' . ((&columns * 63 + 96) / 193)
+argglobal
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=1
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 44 - ((43 * winheight(0) + 31) / 63)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+44
+normal! 05|
+wincmd w
+argglobal
+if bufexists('time_tracking_via_gcal/models/user.py') | buffer time_tracking_via_gcal/models/user.py | else | edit time_tracking_via_gcal/models/user.py | endif
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=1
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 15 - ((14 * winheight(0) + 31) / 63)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+15
+normal! 040|
+wincmd w
+argglobal
+if bufexists('time_tracking_via_gcal/handlers/__init__.py') | buffer time_tracking_via_gcal/handlers/__init__.py | else | edit time_tracking_via_gcal/handlers/__init__.py | endif
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=2
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 74 - ((27 * winheight(0) + 31) / 63)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+74
+normal! 0
+wincmd w
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 64 + 96) / 193)
+exe 'vert 2resize ' . ((&columns * 64 + 96) / 193)
+exe 'vert 3resize ' . ((&columns * 63 + 96) / 193)
+tabedit time_tracking_via_gcal/models/user.py
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+wincmd _ | wincmd |
+vsplit
+2wincmd h
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd w
+set nosplitbelow
+set nosplitright
+wincmd t
+set winminheight=1 winminwidth=1 winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 64 + 96) / 193)
+exe '2resize ' . ((&lines * 31 + 33) / 66)
+exe 'vert 2resize ' . ((&columns * 64 + 96) / 193)
+exe '3resize ' . ((&lines * 31 + 33) / 66)
+exe 'vert 3resize ' . ((&columns * 64 + 96) / 193)
+exe 'vert 4resize ' . ((&columns * 63 + 96) / 193)
+argglobal
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=1
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 35 - ((34 * winheight(0) + 31) / 63)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+35
+normal! 0
+wincmd w
+argglobal
+if bufexists('time_tracking_via_gcal/models/base.py') | buffer time_tracking_via_gcal/models/base.py | else | edit time_tracking_via_gcal/models/base.py | endif
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=1
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 5 - ((4 * winheight(0) + 15) / 31)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+5
 normal! 08|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 137 + 137) / 274)
-exe 'vert 2resize ' . ((&columns * 136 + 137) / 274)
+argglobal
+if bufexists('time_tracking_via_gcal/models/__init__.py') | buffer time_tracking_via_gcal/models/__init__.py | else | edit time_tracking_via_gcal/models/__init__.py | endif
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=1
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 4 - ((1 * winheight(0) + 15) / 31)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+4
+normal! 0
+wincmd w
+argglobal
+if bufexists('migrations/env.py') | buffer migrations/env.py | else | edit migrations/env.py | endif
+setlocal fdm=expr
+setlocal fde=SimpylFold#FoldExpr(v:lnum)
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=2
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 10 - ((9 * winheight(0) + 31) / 63)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+10
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 64 + 96) / 193)
+exe '2resize ' . ((&lines * 31 + 33) / 66)
+exe 'vert 2resize ' . ((&columns * 64 + 96) / 193)
+exe '3resize ' . ((&lines * 31 + 33) / 66)
+exe 'vert 3resize ' . ((&columns * 64 + 96) / 193)
+exe 'vert 4resize ' . ((&columns * 63 + 96) / 193)
 tabnext 2
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

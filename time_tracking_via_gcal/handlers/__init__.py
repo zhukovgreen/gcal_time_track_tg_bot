@@ -12,10 +12,16 @@ from aiogram.types import (
 
 import pendulum
 from googleapiclient.discovery import Resource
+from aiopg.sa.engine import Engine
+from aiopg.sa.connection import SAConnection
+from sqlalchemy.sql.dml import Insert
 
+from ..app import dp
+from ..structs import States
 from ..gcal_manager import get_events
 from .data_processing import form_report
 from ..utils import rm
+from ..models.user import UserTable
 
 
 logger = logging.getLogger("aiogram")
@@ -55,10 +61,27 @@ async def echo(msg: types.Message):
     await msg.reply(msg)
 
 
+async def reset_state(msg: types.Message):
+    state = dp.current_state()
+    await state.reset_state()
+    await msg.reply(
+        f"Your current state is {await state.get_state()}"
+    )
+
+
 async def start(msg: types.Message):
+    state = dp.current_state()
+    engine: Engine = dp["pg"]
+    async with engine.acquire() as conn:
+        conn: SAConnection
+        query: Insert = UserTable.insert().values(
+            user_id=msg.from_user.id, tags=("", "")
+        )
+        await conn.execute(query)
     await msg.reply(
         "Main menu activated", reply_markup=main_menu
     )
+    await state.set_state(States.VIEWING.value)
 
 
 def report_handler_factory(

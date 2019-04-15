@@ -6,9 +6,12 @@ import asyncio
 import attr
 from aiogram import executor, types
 from googleapiclient.discovery import Resource
+from aiopg.sa import create_engine
+from aiopg.sa.engine import Engine
 
 from .handlers import (
     echo,
+    reset_state,
     report_handler_factory,
     start,
     ReportPeriod,
@@ -17,9 +20,10 @@ from .app import bot, dp
 from .handlers.settings import (
     settings,
     settings_edit,
-    States,
+    process_search_tags,
 )
-from .settings import PATH
+from .structs import States
+from .settings import PATH, DB_DSN
 from .gcal_manager import build_gcal
 
 
@@ -54,6 +58,9 @@ class BotManager:
     async def on_startup(self, _):
         self.gcal = build_gcal()
         self.executor_pool = ThreadPoolExecutor()
+        dp["pg"]: Engine = await create_engine(
+            dsn=str(DB_DSN)
+        )
         await self._register_handlers()
 
     async def on_shutdown(self, _):
@@ -65,6 +72,8 @@ class BotManager:
             os.remove(PATH / "tmp" / f)
         await dp.storage.close()
         await dp.storage.wait_closed()
+        pg: Engine = dp["pg"]
+        pg.close()
         await asyncio.sleep(0.250)
 
     async def _register_handlers(self):
@@ -72,7 +81,12 @@ class BotManager:
             start, commands=["start"]
         )
         dp.register_message_handler(
-            echo, commands=["_echo"]
+            echo, commands=["_echo"], state="*"
+        )
+        dp.register_message_handler(
+            reset_state,
+            commands=["_reset_state"],
+            state="*",
         )
         for period in ReportPeriod:
             period: ReportPeriod
@@ -83,14 +97,22 @@ class BotManager:
                     self.gcal,
                 ),
                 _period_check_factory(period),
+                state=States.VIEWING.value,
             )
         logger.info("registering handlers succseeded")
         dp.register_message_handler(
-            settings, commands="settings"
+            settings,
+            commands="settings",
+            state=States.VIEWING.value,
         )
         dp.register_callback_query_handler(
             settings_edit,
             lambda c: c.data == "edit_settings",
+            state=States.VIEWING.value,
+        )
+        dp.register_message_handler(
+            process_search_tags,
+            state=States.EDIT.value,
         )
 
 

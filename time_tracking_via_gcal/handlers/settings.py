@@ -1,13 +1,11 @@
-from enum import Enum
+import re
 
-from aiogram import types, Bot
 
+from aiogram import types
+
+from ..structs import States
 from ..app import dp
-
-
-class States(Enum):
-    EDIT: str = "EDIT"
-    VIEWING: str = "VIEWING"
+from ..models.user import UserTable
 
 
 edit_button = types.InlineKeyboardButton(
@@ -19,8 +17,19 @@ inl_keyboard = types.InlineKeyboardMarkup().add(
 
 
 async def settings(msg: types.Message):
+    engine: Engine = dp["pg"]
+    async with engine.acquire() as conn:
+        conn: SAConnection
+        resp = await conn.execute(
+            UserTable.select().where(
+                UserTable.c.user_id
+                == msg.from_user.id
+            )
+        )
+        tags = await resp.fetchone()
+
     await msg.reply(
-        f"Your settings are ...",
+        f"Your serach tags are {repr(tags[1])}",
         reply_markup=inl_keyboard,
     )
 
@@ -28,16 +37,18 @@ async def settings(msg: types.Message):
 async def settings_edit(
     callback: types.CallbackQuery
 ):
-    state = dp.current_state(
-        user=callback.from_user.id
-    )
-    state.set_data(States.EDIT)
-    bot: Bot = callback.bot
-    await bot.send_message(
+    state = dp.current_state()
+    await state.set_state(States.EDIT.value)
+    await callback.bot.send_message(
         callback.from_user.id,
         text=(
             "Enter new values for a search tags. "
-            "Separate tehm with the coma `,`. "
-            "For example `GT,dev,sprint2-1-0`"
-        )
+            "Separate them with the coma `,`. "
+            "For example `GT,dev,sprint2-1-0` "
+        ),
     )
+
+
+async def process_search_tags(msg: types.Message):
+    res = re.findall(r"[\w+]+|\*+", msg.text)
+    res

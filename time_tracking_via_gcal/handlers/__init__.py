@@ -15,6 +15,7 @@ from googleapiclient.discovery import Resource
 from aiopg.sa.engine import Engine
 from aiopg.sa.connection import SAConnection
 from sqlalchemy.sql.dml import Insert
+from psycopg2 import errors
 
 from ..app import dp
 from ..structs import States
@@ -74,10 +75,31 @@ async def start(msg: types.Message):
     engine: Engine = dp["pg"]
     async with engine.acquire() as conn:
         conn: SAConnection
+
         query: Insert = UserTable.insert().values(
-            user_id=msg.from_user.id, tags=("", "")
+            user_id=msg.from_user.id,
+            tags=("", ""),
+            currency="",
+            rate=0,
         )
-        await conn.execute(query)
+        try:
+            await conn.execute(query)
+        except errors.UniqueViolation:
+            await msg.reply(
+                "User with this id is already registered"
+            )
+    await msg.reply(
+        "This bot helps you track your time and generate useful reports.\n"
+        "The bot uses a special system of tags in your calendar.\n"
+        "If you would like to make a bot notice your event you have to have "
+        "the following event name "
+        "`[some_tag] [another_tag] [yet_another_tag] some text here`.\n"
+        "The bot identifies tags in your calendar events and agregate "
+        "the events into useful report taking in to account your settings.\n\n"
+        "`\settings` - To check your settings\n"
+        "`\help` - get help, submit support ticket\n"
+        r"`\report` - get help, submit support ticket."
+    )
     await msg.reply(
         "Main menu activated", reply_markup=main_menu
     )

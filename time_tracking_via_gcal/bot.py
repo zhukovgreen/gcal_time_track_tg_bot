@@ -17,11 +17,7 @@ from .handlers import (
     ReportPeriod,
 )
 from .app import bot, dp
-from .handlers.settings import (
-    settings,
-    settings_edit,
-    process_search_tags,
-)
+from .handlers.settings import settings, settings_edit, settings_set
 from .structs import States
 from .settings import PATH, DB_DSN
 from .gcal_manager import build_gcal
@@ -99,7 +95,6 @@ class BotManager:
                 _period_check_factory(period),
                 state=States.VIEWING.value,
             )
-        logger.info("registering handlers succseeded")
         dp.register_message_handler(
             settings,
             commands="settings",
@@ -111,9 +106,9 @@ class BotManager:
             state=States.VIEWING.value,
         )
         dp.register_message_handler(
-            process_search_tags,
-            state=States.EDIT.value,
+            settings_set, state=States.EDIT.value
         )
+        logger.info("registering handlers succseeded")
 
 
 def run_bot():

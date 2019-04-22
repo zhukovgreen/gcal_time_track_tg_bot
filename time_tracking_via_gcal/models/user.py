@@ -9,10 +9,10 @@ class User(Base):
     __tablename__ = "users"
 
     user_id = sa.Column(
-        sa.Integer(), primary_key=True
+        sa.Integer(), primary_key=True, unique=True
     )
     tags = sa.Column(sa.ARRAY(sa.String))
-    currency = (sa.Column(sa.String(3)))
+    currency = sa.Column(sa.String(3))
     rate = sa.Column(sa.Float())
 
     # username = sa.Column(

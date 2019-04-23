@@ -11,30 +11,21 @@ from aiopg.sa.engine import Engine
 
 from .handlers import (
     echo,
-    reset_state,
     report_handler_factory,
+    reset_state,
+    settings_edit_callback,
+    settings_get,
+    settings_set,
     start,
     ReportPeriod,
 )
 from .app import bot, dp
-from .handlers.settings import settings, settings_edit, settings_set
 from .structs import States
 from .settings import PATH, DB_DSN
 from .gcal_manager import build_gcal
 
 
 logger = logging.getLogger("aiogram")
-
-
-def _period_check_factory(period: ReportPeriod):
-    def period_check(msg: types.Message) -> bool:
-        return (
-            True
-            if msg.text == period.value
-            else False
-        )
-
-    return period_check
 
 
 @attr.s(auto_attribs=True)
@@ -96,12 +87,12 @@ class BotManager:
                 state=States.VIEWING.value,
             )
         dp.register_message_handler(
-            settings,
+            settings_get,
             commands="settings",
             state=States.VIEWING.value,
         )
         dp.register_callback_query_handler(
-            settings_edit,
+            settings_edit_callback,
             lambda c: c.data == "edit_settings",
             state=States.VIEWING.value,
         )
@@ -109,6 +100,17 @@ class BotManager:
             settings_set, state=States.EDIT.value
         )
         logger.info("registering handlers succseeded")
+
+
+def _period_check_factory(period: ReportPeriod):
+    def period_check(msg: types.Message) -> bool:
+        return (
+            True
+            if msg.text == period.value
+            else False
+        )
+
+    return period_check
 
 
 def run_bot():

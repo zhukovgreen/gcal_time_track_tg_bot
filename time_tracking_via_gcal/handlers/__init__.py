@@ -1,4 +1,9 @@
-from .service import reset_state, start, echo, ReportPeriod
+from .service import (
+    reset_state,
+    start,
+    echo,
+    ReportPeriod,
+)
 from .settings import (
     settings_get,
     settings_edit_callback,

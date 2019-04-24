@@ -12,4 +12,5 @@ class User(Base):
         sa.Integer(), primary_key=True, unique=True
     )
 
+
 UserTable: Table = User.__table__

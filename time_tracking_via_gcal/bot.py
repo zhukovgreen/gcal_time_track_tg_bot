@@ -22,7 +22,7 @@ from .handlers import (
 from .app import bot, dp
 from .structs import States
 from .settings import PATH, DB_DSN
-from .gcal_manager import build_gcal
+from .utils.gcal_manager import build_gcal
 
 
 logger = logging.getLogger("aiogram")

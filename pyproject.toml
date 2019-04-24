@@ -33,6 +33,8 @@ notebook = "^5.7"
 
 [tool.black]
 line-length = 54
+target-version = ['py37']
+
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"

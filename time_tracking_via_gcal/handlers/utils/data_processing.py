@@ -18,7 +18,7 @@ def _form_report_worker(
     )
     report_pt_long = pd.pivot_table(
         report,
-        values=["meeting_length", "work_price"],
+        values=["meeting_length", "amount_due"],
         index=[
             f"G{idx+1}" for idx, _ in enumerate(tags)
         ]
@@ -26,12 +26,19 @@ def _form_report_worker(
         margins=True,
         aggfunc=np.sum,
     )
+    report_pt_long["amount_due"] = (
+        report_pt_long["amount_due"]
+        .round(2)
+        .astype(str)
+        + " "
+        + currency
+    )
     csv_file = f"./tmp/{str(uuid.uuid4())}.csv"
     report_pt_long.to_csv(csv_file)
 
     report_pt_short = pd.pivot_table(
         report,
-        values=["meeting_length", "work_price"],
+        values=["meeting_length", "amount_due"],
         index=[
             f"G{idx+1}" for idx, _ in enumerate(tags)
         ],
@@ -39,14 +46,16 @@ def _form_report_worker(
         aggfunc=np.sum,
     )
 
-    import ipdb
-
-    ipdb.set_trace()
     return (
         types.InputFile(csv_file, filename="out.csv"),
         report_pt_short.to_string(
             formatters=[
-                lambda x: r"{:.1f} h".format(float(x))
+                lambda x: r"{:.2f} {}".format(
+                    float(x), currency
+                ),
+                lambda x: r"{:.1f} h".format(
+                    float(x)
+                ),
             ]
         ),
     )
@@ -90,7 +99,7 @@ def process_data(
         ["summary"]
         + [f"G{idx+1}" for idx, _ in enumerate(tags)]
     ] = data["summary"].str.extract(reg, expand=True)
-    data["work_price"] = data["meeting_length"] * rate
+    data["amount_due"] = data["meeting_length"] * rate
     return data
 
 
@@ -103,7 +112,7 @@ def from_json_date_str(data):
 def summary_modifier(data):
     tk = data.split()
     tk += [
-        random.choice([r"[GC]", r"[TBE]"]),
+        random.choice([r"[gc]", r"[tbe]"]),
         random.choice(
             [
                 r"[rnd]",

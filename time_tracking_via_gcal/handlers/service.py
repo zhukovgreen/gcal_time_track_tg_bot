@@ -13,6 +13,7 @@ from aiogram.types import (
 
 from ..app import dp
 from ..structs import States
+from ..models.dal import create_new_user
 
 logger = logging.getLogger("aiogram")
 

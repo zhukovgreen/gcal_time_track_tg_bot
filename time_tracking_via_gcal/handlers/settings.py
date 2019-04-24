@@ -11,13 +11,6 @@ from ..structs import States
 from ..app import dp
 
 
-edit_button = types.InlineKeyboardButton(
-    "edit", callback_data="edit_settings"
-)
-inl_keyboard = types.InlineKeyboardMarkup().add(
-    edit_button
-)
-
 # S = SETTINGS
 S_REG = (
     r"(\d+|(?:\d+\.\d+)) ([A-Z]{3}) *((?:.*, ?)*.*)"
@@ -37,9 +30,17 @@ S_WRONG_FMT_MSG = "Wrong format, please:\n\n"
 S_UPD_SUCCESS_MSG = "Settings updated successfully"
 
 
+edit_button = types.InlineKeyboardButton(
+    "edit", callback_data="edit_settings"
+)
+inl_keyboard = types.InlineKeyboardMarkup().add(
+    edit_button
+)
+
+
 async def settings_get(msg: types.Message):
     settings: str = pprint.pformat(
-        await get_user_settings(msg.from_user.id),
+        await get_user_settings(msg),
         width=40,
         indent=0,
     ).strip(" {}")
@@ -64,12 +65,14 @@ async def settings_set(msg: types.Message):
         rate, currency, tags = re.fullmatch(
             S_REG, msg.text
         ).groups()
-        tags = tags.replace(" ", "").split(",")
+        tags = (
+            tags.replace(" ", "").lower().split(",")
+        )
     except:
         await msg.reply(S_WRONG_FMT_MSG + S_FMT_MSG)
     else:
         await update_user_settings(
-            rate, currency, tags
+            msg, rate, currency, tags
         )
         await msg.reply(S_UPD_SUCCESS_MSG)
         await settings_get(msg)

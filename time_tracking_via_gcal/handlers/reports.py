@@ -12,9 +12,10 @@ from aiogram.types import (
 import pendulum
 from googleapiclient.discovery import Resource
 
-from ..gcal_manager import get_events
+from ..utils.gcal_manager import get_events
+from ..utils.rm import rm
 from .utils.data_processing import form_report
-from ..utils import rm
+from ..models.dal import get_user_settings
 from .service import ReportPeriod
 
 
@@ -55,8 +56,16 @@ def report_handler_factory(
             gcal, start, end, executor=executor
         )
 
+        user_settings = await get_user_settings(msg)
+        tags: tuple = user_settings["tags"]
+        currency: str = user_settings["currency"]
+        rate: float = user_settings["rate"]
         file_report, msg_report = await form_report(
-            events, executor=executor
+            events,
+            tags,
+            rate,
+            currency,
+            executor=executor,
         )
         await msg.reply_document(
             file_report, msg_report

@@ -9,29 +9,24 @@ from ..models.dal import (
 )
 from ..structs import States
 from ..app import dp
-
-
-# S = SETTINGS
-S_REG = (
-    r"(\d+|(?:\d+\.\d+)) ([A-Z]{3}) *((?:.*, ?)*.*)"
+from ..messages import (
+    S_REG,
+    S_SHOW_MSG,
+    S_FMT_MSG,
+    S_WRONG_FMT_MSG,
+    S_UPD_SUCCESS_MSG,
 )
-S_SHOW_MSG = "Your settings are:\n\n{}"
 
-S_FMT_MSG = (
-    "Enter new settings in the format like\n"
-    "{hour_rate} {currency} '{tag1}','{tag2}'...'{tagX}'\n"
-    "number of tags could be from 0 to any number."
-    "then any value will be accepted inside []\nExamples:\n"
-    "40.0 EUR GT,dev,sprint2-1-0\n"
-    "40.0 EUR ,,sprint2-1-0\n"
-    "1000 RUB"
-)
-S_WRONG_FMT_MSG = "Wrong format, please:\n\n"
-S_UPD_SUCCESS_MSG = "Settings updated successfully"
+
+SETTINGS_WIDTH = 40
+SETTINGS_INDENT = 0
+SETTINGS_STRIP = " {}"
+
+EDIT_SETTINGS_CALLBACK_NAME = "edit_settings"
 
 
 edit_button = types.InlineKeyboardButton(
-    "edit", callback_data="edit_settings"
+    "edit", callback_data=EDIT_SETTINGS_CALLBACK_NAME
 )
 inl_keyboard = types.InlineKeyboardMarkup().add(
     edit_button
@@ -41,11 +36,11 @@ inl_keyboard = types.InlineKeyboardMarkup().add(
 async def report_settings_get(msg: types.Message):
     settings: str = pprint.pformat(
         await get_report_settings(msg),
-        width=40,
-        indent=0,
-    ).strip(" {}")
+        width=SETTINGS_WIDTH,
+        indent=SETTINGS_INDENT,
+    ).strip(SETTINGS_STRIP)
     await msg.reply(
-        S_SHOW_MSG.format(settings),
+        S_SHOW_MSG.format(settings=settings),
         reply_markup=inl_keyboard,
     )
 
@@ -69,7 +64,7 @@ async def report_settings_set(msg: types.Message):
             tags.replace(" ", "").lower().split(",")
         )
     except:
-        await msg.reply(S_WRONG_FMT_MSG + S_FMT_MSG)
+        await msg.reply(S_WRONG_FMT_MSG +" please:\n\n" + S_FMT_MSG)
     else:
         await update_report_settings(
             msg, rate, currency, tags

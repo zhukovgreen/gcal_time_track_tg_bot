@@ -18,14 +18,14 @@ from .handlers import (
     start,
     get_cal_id,
     get_secrets,
-    ReportPeriod,
+    EDIT_SETTINGS_CALLBACK_NAME,
 )
 from .app import bot, dp
-from .structs import States
+from .structs import States, ReportPeriod
 from .settings import PATH, DB_DSN
 
 
-logger = logging.getLogger("aiogram")
+logger = logging.getLogger(__name__)
 
 
 @attr.s(auto_attribs=True)
@@ -97,14 +97,15 @@ class BotManager:
         )
         dp.register_callback_query_handler(
             report_settings_edit_callback,
-            lambda c: c.data == "edit_settings",
+            lambda c: c.data
+            == EDIT_SETTINGS_CALLBACK_NAME,
             state=States.VIEWING.value,
         )
         dp.register_message_handler(
             report_settings_set,
             state=States.EDIT.value,
         )
-        logger.info("registering handlers succseeded")
+        logger.info("All handlers registered")
 
 
 def _period_check_factory(period: ReportPeriod):

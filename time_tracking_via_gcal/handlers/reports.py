@@ -11,9 +11,7 @@ from aiogram.types import (
 
 import pendulum
 
-from ..utils.gcal_manager import get_events
-from ..utils.rm import rm
-from .utils.data_processing import form_report
+from .utils import form_report, get_events, rm
 from ..models.dal import (
     get_report_settings,
     get_user_cal_resources,
@@ -21,7 +19,7 @@ from ..models.dal import (
 from .service import ReportPeriod
 
 
-logger = logging.getLogger("aiogram")
+logger = logging.getLogger(__name__)
 
 
 def report_handler_factory(
@@ -83,4 +81,7 @@ def report_handler_factory(
             file_report.file.name, executor=executor
         )
 
+    logger.info(
+        f"Report handler for {period.value} was generated"
+    )
     return report_handler

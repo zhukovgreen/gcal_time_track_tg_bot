@@ -3,10 +3,8 @@ import pathlib
 from envparse import env
 import yarl
 
-try:
-    env.read_envfile()
-except:
-    pass
+
+env.read_envfile()
 
 DEBUG = env.bool("DEBUG")
 BOT_API_TOKEN = env.str("BOT_API_TOKEN")

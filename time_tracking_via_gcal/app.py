@@ -12,6 +12,13 @@ logging.basicConfig(
     level="DEBUG" if DEBUG else "INFO"
 )
 logger = logging.getLogger(__name__)
+logger.info(
+    r"Logger level set to {}".format(
+        logging.getLevelName(
+            logger.getEffectiveLevel()
+        )
+    )
+)
 
 bot = Bot(token=BOT_API_TOKEN)
 dp = Dispatcher(bot)
@@ -20,5 +27,8 @@ storage = RedisStorage2(
     REDIS_URL.port,
     db=int(REDIS_URL.path[1:]),
 )
+logger.info("Redis cache was built")
 bot = Bot(token=BOT_API_TOKEN)
 dp = Dispatcher(bot, storage=storage)
+
+logger.info("Bot and dispatcher was created")

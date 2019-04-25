@@ -2,7 +2,6 @@ import pickle
 import io
 import json
 import logging
-from enum import Enum
 
 from aiogram import types
 from aiogram.types import (
@@ -16,39 +15,21 @@ from psycopg2.errors import UniqueViolation
 
 
 from ..app import dp
-from ..structs import States
+from ..structs import States, ReportPeriod
 from ..models.dal import update_user, create_new_user
-from ..utils.gcal_manager import build_gcal
-
-logger = logging.getLogger("aiogram")
-
-INTRO_MSG = (
-    "This bot helps you track your time and generate useful reports.\n"
-    "The bot uses a special system of tags in your calendar.\n"
-    "If you would like to make a bot notice your event you have to have "
-    "the following event name "
-    "`[some_tag] [another_tag] [yet_another_tag] some text here`.\n"
-    "The bot identifies tags in your calendar events and agregate "
-    "the events into useful report taking in to account your settings.\n\n"
-    "`/settings` - To check your settings\n"
-    "`/help` - get help, submit support ticket\n"
-    r"`/report` - get help, submit support ticket."
+from .utils import build_gcal
+from ..messages import (
+    INTRO_MSG,
+    ALREADY_REGISTRED_USER_MSG,
+    GCAL_BUILD_NOTIF_MSG,
+    CURRENT_STATE_MSG,
+    ENTER_CAL_ID_MSG,
+    SMTH_WENT_WRONG_MSG,
+    SEND_JSON_MSG,
+    YOU_CAN_USE_BOT_MSG,
 )
 
-ALREADY_REGISTRED_USER_MSG = (
-    "User with this id is already registered"
-)
-
-GCAL_BUILD_NOTIF_MSG = (
-    r"Google calendar was built for a user {user_id}"
-)
-
-
-class ReportPeriod(Enum):
-    prev_month: str = "previous month"
-    this_month: str = "this month"
-    prev_week: str = "previous week"
-    this_week: str = "this week"
+logger = logging.getLogger(__name__)
 
 
 main_menu = ReplyKeyboardMarkup(
@@ -82,7 +63,9 @@ async def reset_state(msg: types.Message):
     state = dp.current_state()
     await state.reset_state()
     await msg.reply(
-        f"Your current state is {await state.get_state()}"
+        CURRENT_STATE_MSG.format(
+            state=await state.get_state()
+        )
     )
 
 
@@ -93,7 +76,7 @@ async def start(msg: types.Message):
     except UniqueViolation:
         await msg.reply(ALREADY_REGISTRED_USER_MSG)
 
-    await msg.reply("Now, enter your calendar id")
+    await msg.reply(ENTER_CAL_ID_MSG)
     state = dp.current_state()
     await state.set_state(States.AUTH_CAL_ID.value)
 
@@ -105,12 +88,9 @@ async def get_cal_id(msg: types.Message):
             msg.from_user.id, cal_id=msg.text
         )
     except:
-        await msg.reply("Something went wrong")
+        await msg.reply(SMTH_WENT_WRONG_MSG)
     else:
-        await msg.reply(
-            "OK. Now send me the json file, "
-            "which you generated from google api"
-        )
+        await msg.reply(SEND_JSON_MSG)
         state = dp.current_state()
         await state.set_state(
             States.AUTH_SECRETS.value
@@ -136,10 +116,10 @@ async def get_secrets(msg: types.Message):
             cal_service=pickle.dumps(gcal),
         )
     except:
-        await msg.reply("Something went wrong")
+        await msg.reply(SMTH_WENT_WRONG_MSG)
     else:
         await msg.reply(
-            "Great. Now you can use the bot",
+            YOU_CAN_USE_BOT_MSG,
             reply_markup=main_menu,
         )
         state = dp.current_state()

@@ -1,3 +1,4 @@
+import logging
 import pickle
 from aiogram.types import Message
 from aiopg.sa.connection import SAConnection
@@ -11,7 +12,8 @@ from ..models import UserTable, ReportSettingsTable
 GCalResource = Resource
 GCalId = str
 
-# Msgs
+
+logger = logging.getLogger(__name__)
 
 
 async def create_new_user(user_id: int):
@@ -29,6 +31,7 @@ async def create_new_user(user_id: int):
                 rate=0,
             )
         )
+    logger.info(f"User created with id {user_id}")
 
 
 async def get_report_settings(msg: Message) -> dict:

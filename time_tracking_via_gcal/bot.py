@@ -5,7 +5,6 @@ import asyncio
 
 import attr
 from aiogram import executor, types
-from googleapiclient.discovery import Resource
 from aiopg.sa import create_engine
 from aiopg.sa.engine import Engine
 
@@ -13,16 +12,17 @@ from .handlers import (
     echo,
     report_handler_factory,
     reset_state,
-    settings_edit_callback,
-    settings_get,
-    settings_set,
+    report_settings_edit_callback,
+    report_settings_get,
+    report_settings_set,
     start,
+    get_cal_id,
+    get_secrets,
     ReportPeriod,
 )
 from .app import bot, dp
 from .structs import States
 from .settings import PATH, DB_DSN
-from .utils.gcal_manager import build_gcal
 
 
 logger = logging.getLogger("aiogram")
@@ -30,7 +30,6 @@ logger = logging.getLogger("aiogram")
 
 @attr.s(auto_attribs=True)
 class BotManager:
-    gcal: Resource = attr.ib(init=False)
     executor_pool: ThreadPoolExecutor = attr.ib(
         init=False
     )
@@ -43,7 +42,6 @@ class BotManager:
         )
 
     async def on_startup(self, _):
-        self.gcal = build_gcal()
         self.executor_pool = ThreadPoolExecutor()
         dp["pg"]: Engine = await create_engine(
             dsn=str(DB_DSN)
@@ -68,36 +66,43 @@ class BotManager:
             start, commands=["start"]
         )
         dp.register_message_handler(
-            echo, commands=["_echo"], state="*"
-        )
-        dp.register_message_handler(
             reset_state,
             commands=["_reset_state"],
             state="*",
+        )
+        dp.register_message_handler(
+            get_cal_id, state=States.AUTH_CAL_ID.value
+        )
+        dp.register_message_handler(
+            get_secrets,
+            state=States.AUTH_SECRETS.value,
+            content_types=types.ContentTypes.DOCUMENT,
+        )
+        dp.register_message_handler(
+            echo, commands=["_echo"], state="*"
         )
         for period in ReportPeriod:
             period: ReportPeriod
             dp.register_message_handler(
                 report_handler_factory(
-                    period,
-                    self.executor_pool,
-                    self.gcal,
+                    period, self.executor_pool
                 ),
                 _period_check_factory(period),
                 state=States.VIEWING.value,
             )
         dp.register_message_handler(
-            settings_get,
+            report_settings_get,
             commands="settings",
             state=States.VIEWING.value,
         )
         dp.register_callback_query_handler(
-            settings_edit_callback,
+            report_settings_edit_callback,
             lambda c: c.data == "edit_settings",
             state=States.VIEWING.value,
         )
         dp.register_message_handler(
-            settings_set, state=States.EDIT.value
+            report_settings_set,
+            state=States.EDIT.value,
         )
         logger.info("registering handlers succseeded")
 

@@ -10,12 +10,14 @@ from aiogram.types import (
 )
 
 import pendulum
-from googleapiclient.discovery import Resource
 
 from ..utils.gcal_manager import get_events
 from ..utils.rm import rm
 from .utils.data_processing import form_report
-from ..models.dal import get_user_settings
+from ..models.dal import (
+    get_report_settings,
+    get_user_cal_resources,
+)
 from .service import ReportPeriod
 
 
@@ -23,11 +25,12 @@ logger = logging.getLogger("aiogram")
 
 
 def report_handler_factory(
-    period: ReportPeriod,
-    executor: ThreadPoolExecutor,
-    gcal: Resource,
+    period: ReportPeriod, executor: ThreadPoolExecutor
 ):
     async def report_handler(msg: types.Message):
+        gcal, cal_id = await get_user_cal_resources(
+            msg.from_user.id
+        )
         now = pendulum.now("UTC")
         prev_month = now.subtract(months=1)
         prev_week = now.subtract(weeks=1)
@@ -53,13 +56,19 @@ def report_handler_factory(
 
         start, end = DATE_MAPPER[period]
         events = await get_events(
-            gcal, start, end, executor=executor
+            gcal,
+            cal_id,
+            start,
+            end,
+            executor=executor,
         )
 
-        user_settings = await get_user_settings(msg)
-        tags: tuple = user_settings["tags"]
-        currency: str = user_settings["currency"]
-        rate: float = user_settings["rate"]
+        report_settings = await get_report_settings(
+            msg
+        )
+        tags: tuple = report_settings["tags"]
+        currency: str = report_settings["currency"]
+        rate: float = report_settings["rate"]
         file_report, msg_report = await form_report(
             events,
             tags,

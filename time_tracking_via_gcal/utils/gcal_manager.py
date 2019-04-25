@@ -4,13 +4,9 @@ import asyncio
 import logging
 from typing import List
 import datetime
-import pickle
 
 from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
-
-from ..settings import PATH
+from google.oauth2 import service_account
 
 
 logger = logging.getLogger("aiogram")
@@ -21,44 +17,23 @@ SCOPES = [
 ]
 
 
-def build_gcal():
-    if (PATH / "token.pickle").exists:
-        with open(
-            PATH / "token.pickle", "rb"
-        ) as token:
-            creds = pickle.load(token)
-    # If there are no (valid) credentials available,
-    # let the user log in.
-    if not creds or not creds.valid:
-        if (
-            creds
-            and creds.expired
-            and creds.refresh_token
-        ):
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                PATH / "credentials.json", SCOPES
-            )
-            creds = flow.run_local_server()
-        # Save the credentials for the next run
-        with open(
-            PATH / "token.pickle", "wb"
-        ) as token:
-            pickle.dump(creds, token)
+def build_gcal(secrets: dict):
+    creds = service_account.Credentials.from_service_account_info(
+        secrets
+    )
     gcal = build(
         "calendar",
         "v3",
         credentials=creds,
         cache_discovery=False,
     )
-
     logger.debug(f"Google calendar was built")
     return gcal
 
 
 def _get_events_worker(
     gcal,
+    calendar_id: str,
     start: datetime.datetime,
     end: datetime.datetime,
 ) -> List[dict]:
@@ -66,7 +41,7 @@ def _get_events_worker(
     events_data = (
         gcal.events()
         .list(
-            calendarId="primary",
+            calendarId=calendar_id,
             timeMin=start.isoformat(),
             timeMax=end.isoformat(),
             singleEvents=True,
@@ -79,6 +54,7 @@ def _get_events_worker(
 
 async def get_events(
     gcal,
+    calendar_id: str,
     start: datetime.datetime,
     end: datetime.datetime,
     executor: ThreadPoolExecutor,
@@ -86,5 +62,11 @@ async def get_events(
     loop: asyncio.AbstractEventLoop = asyncio.get_event_loop()
     return await loop.run_in_executor(
         executor,
-        partial(_get_events_worker, gcal, start, end),
+        partial(
+            _get_events_worker,
+            gcal,
+            calendar_id,
+            start,
+            end,
+        ),
     )

@@ -5,9 +5,9 @@ from .base import Base
 from .user import UserTable
 
 
-class UserSettings(Base):
+class ReportSettings(Base):
 
-    __tablename__ = "user_settings"
+    __tablename__ = "report_settings"
 
     user_id = sa.Column(
         ForeignKey(UserTable.c.user_id),
@@ -19,4 +19,4 @@ class UserSettings(Base):
     rate = sa.Column(sa.Float())
 
 
-UserSettingsTable: Table = UserSettings.__table__
+ReportSettingsTable: Table = ReportSettings.__table__

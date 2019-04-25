@@ -3,21 +3,25 @@ from .service import (
     start,
     echo,
     ReportPeriod,
+    get_cal_id,
+    get_secrets,
 )
 from .settings import (
-    settings_get,
-    settings_edit_callback,
-    settings_set,
+    report_settings_get,
+    report_settings_edit_callback,
+    report_settings_set,
 )
 from .reports import report_handler_factory
 
 __all__ = (
     "echo",
     "reset_state",
-    "settings_get",
-    "settings_edit_callback",
-    "settings_set",
+    "report_settings_get",
+    "report_settings_edit_callback",
+    "report_settings_set",
     "report_handler_factory",
     "start",
+    "get_cal_id",
+    "get_secrets",
     "ReportPeriod",
 )

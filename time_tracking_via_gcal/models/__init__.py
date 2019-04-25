@@ -1,14 +1,14 @@
 from .base import Base
 from .user import User, UserTable
-from .user_settings import (
-    UserSettings,
-    UserSettingsTable,
+from .report_settings import (
+    ReportSettings,
+    ReportSettingsTable,
 )
 
 __all__ = (
     "User",
     "UserTable",
-    "UserSettings",
-    "UserSettingsTable",
+    "ReportSettings",
+    "ReportSettingsTable",
     "Base",
 )

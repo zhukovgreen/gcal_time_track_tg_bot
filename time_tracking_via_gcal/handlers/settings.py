@@ -4,8 +4,8 @@ import pprint
 from aiogram import types
 
 from ..models.dal import (
-    get_user_settings,
-    update_user_settings,
+    get_report_settings,
+    update_report_settings,
 )
 from ..structs import States
 from ..app import dp
@@ -38,9 +38,9 @@ inl_keyboard = types.InlineKeyboardMarkup().add(
 )
 
 
-async def settings_get(msg: types.Message):
+async def report_settings_get(msg: types.Message):
     settings: str = pprint.pformat(
-        await get_user_settings(msg),
+        await get_report_settings(msg),
         width=40,
         indent=0,
     ).strip(" {}")
@@ -50,7 +50,7 @@ async def settings_get(msg: types.Message):
     )
 
 
-async def settings_edit_callback(
+async def report_settings_edit_callback(
     callback: types.CallbackQuery
 ):
     state = dp.current_state()
@@ -60,7 +60,7 @@ async def settings_edit_callback(
     )
 
 
-async def settings_set(msg: types.Message):
+async def report_settings_set(msg: types.Message):
     try:
         rate, currency, tags = re.fullmatch(
             S_REG, msg.text
@@ -71,10 +71,10 @@ async def settings_set(msg: types.Message):
     except:
         await msg.reply(S_WRONG_FMT_MSG + S_FMT_MSG)
     else:
-        await update_user_settings(
+        await update_report_settings(
             msg, rate, currency, tags
         )
         await msg.reply(S_UPD_SUCCESS_MSG)
-        await settings_get(msg)
+        await report_settings_get(msg)
         state = dp.current_state()
         await state.set_state(States.VIEWING.value)

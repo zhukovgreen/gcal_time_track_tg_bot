@@ -10,6 +10,7 @@ from aiopg.sa.engine import Engine
 
 from .handlers import (
     echo,
+    help_handler,
     report_handler_factory,
     reset_state,
     report_settings_edit_callback,
@@ -64,6 +65,9 @@ class BotManager:
     async def _register_handlers(self):
         dp.register_message_handler(
             start, commands=["start"]
+        )
+        dp.register_message_handler(
+            help_handler, commands=["help"], state="*"
         )
         dp.register_message_handler(
             reset_state,

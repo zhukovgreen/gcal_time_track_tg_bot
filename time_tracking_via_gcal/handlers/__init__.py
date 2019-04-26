@@ -4,6 +4,7 @@ from .service import (
     echo,
     get_cal_id,
     get_secrets,
+    help_handler,
 )
 from .settings import (
     report_settings_get,
@@ -15,6 +16,7 @@ from .reports import report_handler_factory
 
 __all__ = (
     "echo",
+    "help_handler",
     "reset_state",
     "report_settings_get",
     "report_settings_edit_callback",

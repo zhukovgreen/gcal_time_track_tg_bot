@@ -20,16 +20,21 @@ from ..models.dal import update_user, create_new_user
 from .utils import build_gcal
 from ..messages import (
     INTRO_MSG,
+    HELP_MSG,
     ALREADY_REGISTRED_USER_MSG,
-    GCAL_BUILD_NOTIF_MSG,
     CURRENT_STATE_MSG,
     ENTER_CAL_ID_MSG,
     SMTH_WENT_WRONG_MSG,
     SEND_JSON_MSG,
+    SETTING_FMT_MSG,
     YOU_CAN_USE_BOT_MSG,
+    THIS_IS_BAD_FILE_MSG,
 )
 
 logger = logging.getLogger(__name__)
+
+SUBMIT_TICKET_URL = "https://google.com"
+SUPPORT_CHAT_URL = "https://google.com"
 
 
 main_menu = ReplyKeyboardMarkup(
@@ -52,6 +57,18 @@ main_menu = ReplyKeyboardMarkup(
         ],
     ],
     resize_keyboard=True,
+)
+
+help_menu = InlineKeyboardMarkup()
+help_menu.add(
+    InlineKeyboardButton(
+        "submit ticket", url=SUBMIT_TICKET_URL
+    )
+)
+help_menu.add(
+    InlineKeyboardButton(
+        "join support chat", url=SUPPORT_CHAT_URL
+    )
 )
 
 
@@ -81,6 +98,13 @@ async def start(msg: types.Message):
     await state.set_state(States.AUTH_CAL_ID.value)
 
 
+async def help_handler(msg: types.Message):
+    await msg.reply(
+        HELP_MSG + "\n\n" + INTRO_MSG,
+        reply_markup=help_menu,
+    )
+
+
 async def get_cal_id(msg: types.Message):
 
     try:
@@ -101,26 +125,31 @@ async def get_secrets(msg: types.Message):
     secrets = await msg.document.download(
         destination=io.BytesIO()
     )
-    secrets = json.loads(secrets.read().decode())
-    gcal = build_gcal(secrets)
-    logger.info(
-        GCAL_BUILD_NOTIF_MSG.format(
-            user_id=msg.from_user.id
-        )
-    )
-
     try:
-        await update_user(
-            msg.from_user.id,
-            secrets=secrets,
-            cal_service=pickle.dumps(gcal),
-        )
-    except:
-        await msg.reply(SMTH_WENT_WRONG_MSG)
+        secrets = json.loads(secrets.read().decode())
+    except json.JSONDecodeError:
+        await msg.reply(THIS_IS_BAD_FILE_MSG)
     else:
-        await msg.reply(
-            YOU_CAN_USE_BOT_MSG,
-            reply_markup=main_menu,
-        )
-        state = dp.current_state()
-        await state.set_state(States.VIEWING.value)
+        try:
+            gcal = build_gcal(secrets)
+            logger.info(
+                r"Google calendar was built for the user {user_id}".format(
+                    user_id=msg.from_user.id
+                )
+            )
+            await update_user(
+                msg.from_user.id,
+                secrets=secrets,
+                cal_service=pickle.dumps(gcal),
+            )
+        except:
+            await msg.reply(SMTH_WENT_WRONG_MSG)
+        else:
+            await msg.reply(
+                YOU_CAN_USE_BOT_MSG
+                + "\n\n"
+                + SETTING_FMT_MSG,
+                reply_markup=main_menu,
+            )
+            state = dp.current_state()
+            await state.set_state(States.EDIT.value)

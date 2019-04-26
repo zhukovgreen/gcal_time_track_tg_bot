@@ -15,6 +15,7 @@ from ..messages import (
     SETTING_FMT_MSG,
     SETTINGS_WRONG_FMT_MSG,
     SETTINGS_UPD_SUCCESS_MSG,
+    DESCR_ON_CAL_NAMING_PRINCIPLE,
 )
 
 
@@ -40,7 +41,8 @@ async def report_settings_get(msg: types.Message):
         indent=SETTINGS_INDENT,
     ).strip(SETTINGS_STRIP)
     await msg.reply(
-        SETTINGS_GET_MSG.format(settings=settings),
+        SETTINGS_GET_MSG.format(settings=settings)
+        + DESCR_ON_CAL_NAMING_PRINCIPLE,
         reply_markup=inl_keyboard,
     )
 

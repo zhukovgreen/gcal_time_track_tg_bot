@@ -16,8 +16,5 @@ COPY ./poetry.lock ./poetry.lock
 RUN poetry install
 
 FROM install AS dev
-ENV HOST 0.0.0.0
-ENV PORT 80
-EXPOSE ${PORT}
 CMD python -m time_tracking_via_gcal
 COPY . .

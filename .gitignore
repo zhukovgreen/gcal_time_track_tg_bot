@@ -151,3 +151,5 @@ tags
 *.pickle
 .vim
 secrets.json
+
+.env.local

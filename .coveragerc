@@ -1,0 +1,7 @@
+[report]
+show_missing = true
+include =
+    time_tracking_via_gcal/*
+omit =
+    tests/*
+    migrations/*

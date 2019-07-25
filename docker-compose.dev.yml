@@ -1,0 +1,39 @@
+version: "3.7"
+services:
+  time_tracking:
+    env_file:
+    - ./.env
+    volumes:
+    - .:/app
+    build:
+      context: .
+      cache_from:
+      - &img_tag time-tracking-app
+    image: *img_tag
+    depends_on:
+    - redis
+    - postgres
+    command:
+    - bash
+
+  redis:
+    image: redis
+    ports:
+    - 63791:6379
+
+  postgres:
+    image: "postgres:11.2"
+    environment:
+      POSTGRES_USER: tta
+      POSTGRES_PASSWORD: tta
+      POSTGRES_DB: tta
+    ports:
+    - 54321:5432
+
+  pgadmin:
+    image: "dpage/pgadmin4"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: zhukovgreen@icloud.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+    - 8082:80

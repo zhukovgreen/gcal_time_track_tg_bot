@@ -1,6 +1,6 @@
 # Bot for tracking your time from google calendar
 
-![](./Peek\ 2019-07-25\ 11-24.gif)
+![video](./gif.gif)
 
 This bot helps you generate useful reports of you time spent
 on projects. For this you use a system of special [tags] in
